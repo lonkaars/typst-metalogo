@@ -1,6 +1,6 @@
 [package]
 name = "metalogo"
-version = "1.0.1"
+version = "1.0.2"
 authors = ["Loek Le Blansch <loek@pipeframe.xyz>"]
 license = "MIT"
 description = "Typeset various LaTeX logos"
