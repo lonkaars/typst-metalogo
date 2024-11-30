@@ -1,0 +1,12 @@
+root = true
+
+[*]
+indent_style = tab
+end_of_line = lf
+insert_final_newline = true
+max_line_length = 79
+
+[*.{md,typ}]
+indent_style = space
+indent_size = 2
+

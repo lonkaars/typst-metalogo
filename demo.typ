@@ -1,11 +1,10 @@
 #set page(width: 35em, height: auto)
 #set text(font: "New Computer Modern")
 
-#import "@preview/metalogo:1.1.0": TeX, LaTeX, XeLaTeX, XeTeX, LuaLaTeX
+#import "metalogo.typ": *
 
-#LaTeX is a typestting program based on #TeX. Some people use #XeLaTeX
-(sometimes #XeTeX), or #LuaLaTeX to typeset their documents.
+#LaTeX is a typesetting program based on #TeX. Some people use #XeLaTeX
+(sometimes #XeTeX) or #LuaLaTeX (sometimes #LuaTeX) to typeset their documents.
 
-People who are afraid of #LaTeX and its complex macro system may use typst
+People who are afraid of #LaTeX and its complex macro system may use Typst
 instead.
-

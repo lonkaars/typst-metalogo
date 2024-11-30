@@ -2,6 +2,12 @@
 
 Typeset LaTeX compiler logos in [typst](https://github.com/typst/typst).
 
+## todo
+
+- document `metalogo()` command
+- write a manual
+- fix latex2e logo
+
 ## usage
 
 From [./demo.typ](./demo.typ):
