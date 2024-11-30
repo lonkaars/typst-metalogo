@@ -7,7 +7,7 @@ Typeset LaTeX compiler logos in [typst](https://github.com/typst/typst).
 From [./demo.typ](./demo.typ):
 
 ```typ
-#import "@preview/metalogo:1.0.2": TeX, LaTeX, XeLaTeX, XeTeX, LuaLaTeX
+#import "@preview/metalogo:1.1.0": TeX, LaTeX, XeLaTeX, XeTeX, LuaLaTeX
 
 #LaTeX is a typestting program based on #TeX. Some people use #XeLaTeX
 (sometimes #XeTeX), or #LuaLaTeX to typeset their documents.
