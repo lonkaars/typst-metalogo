@@ -24,6 +24,7 @@
   })
 }
 
+// TODO: how to write this so `drop(1mm)[content]` works?
 #let drop(body, distance: 0pt) = box[#move(dy: distance)[#body]]
 #let mirror(body) = scale(x: -100%)[#body]
 
@@ -48,6 +49,8 @@
 
   [L]
   h(cfg.kern-la)
+  // TODO: factor out `A` component and add spacing parameters to config
+  // TODO: `A` is too far to the left compared to real LaTeX
   drop(distance: -.2em)[#text(0.7em)[A]]
   h(cfg.kern-at)
   TeX
@@ -74,6 +77,7 @@
 
 #let LaTeXe = context[#box[#{
   LaTeX
+  // TODO: both of these are separate components in LaTeX's metalogo
   [2]
   sym.epsilon
 }]]
