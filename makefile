@@ -1,4 +1,4 @@
-all: demo.svg
+all: demo.svg manual.pdf
 
 %.pdf: %.typ
 	typst compile $<
