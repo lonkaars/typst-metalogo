@@ -24,15 +24,14 @@
   })
 }
 
-// TODO: how to write this so `drop(1mm)[content]` works?
-#let drop(body, distance: 0pt) = box[#move(dy: distance)[#body]]
+#let drop(distance, body) = box(move(dy: distance, body))
 #let mirror(body) = scale(x: -100%)[#body]
 
 #let TeX = context[#box[#{
   let cfg = config.get()
   [T]
   h(cfg.kern-te)
-  drop(distance: cfg.drop-tex)[E]
+  drop(cfg.drop-tex)[E]
   h(cfg.kern-ex)
   [X]
 }]]
@@ -41,7 +40,7 @@
   let cfg = config.get()
   [X]
   h(cfg.kern-xe)
-  drop(distance: cfg.drop-xe)[#mirror[E]]
+  drop(cfg.drop-xe)[#mirror[E]]
 }]]
 
 #let LaTeX = context[#box[#{
@@ -51,7 +50,7 @@
   h(cfg.kern-la)
   // TODO: factor out `A` component and add spacing parameters to config
   // TODO: `A` is too far to the left compared to real LaTeX
-  drop(distance: -.2em)[#text(0.7em)[A]]
+  drop(-.2em)[#text(0.7em)[A]]
   h(cfg.kern-at)
   TeX
 }]]
