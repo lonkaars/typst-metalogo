@@ -18,6 +18,17 @@
 #let metalogo(..opts) = context{
   config.update(c => {
     for (key, value) in opts.named() {
+      assert(
+        c.at(key, default: none) != none,
+        message: "metalogo: Unknown option \"" + key + "\""
+      )
+      let expected_type = type(c.at(key))
+      let actual_type = type(value)
+      assert(
+        expected_type == actual_type,
+        message: "metalogo: Option \"" + key + "\" has type `" +
+        str(expected_type) + "` but was assigned a `" + str(actual_type) + "`"
+      )
       c.insert(key, value)
     }
     return c
@@ -75,9 +86,11 @@
 #let LuaTeX = box[Lua#TeX]
 
 #let LaTeXe = context[#box[#{
+  let cfg = config.get()
+
   LaTeX
-  // TODO: both of these are separate components in LaTeX's metalogo
+  h(cfg.kern-x2)
   [2]
-  sym.epsilon
+  [$attach(, b: #sym.epsilon)$]
 }]]
 
