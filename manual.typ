@@ -3,11 +3,24 @@
 
 #import "lib.typ": *
 
+#show: metalogo.with(
+  drop-tex: 0.14em,
+  drop-xe: 0.14em,
+  kern-xe: -.09em,
+  kern-el: -.09em,
+  kern-et: -.08em,
+  kern-la: -.35em,
+  kern-at: -.10em,
+  kern-te: -.08em,
+  kern-ex: -.10em,
+)
+
 #let manifest = toml("typst.toml")
 #(manifest.package.description = [
   #show "LaTeX": LaTeX
   #manifest.package.description
 ])
+
 #show: mantys.with(
   ..manifest,
   title: [The #manifest.package.name package],
@@ -18,6 +31,10 @@
     `metalogo` package, it allows the compiler logos to be optimized for
     different typefaces.
   ],
+  examples-scope: (
+    LaTeX: LaTeX,
+    metalogo: metalogo,
+  ),
 )
 #show table.cell.where(y: 0): strong
 #let toprule = 1pt
@@ -42,92 +59,138 @@
 
 = Commands
 
-== Logo commands <cmd-logo>
+== Logos <cmd-logo>
 
-#variable("TeX")[#TeX]
-#variable("LaTeX")[#LaTeX]
-#variable("XeTeX")[#XeTeX]
-#variable("XeLaTeX")[#XeLaTeX]
-#variable("LuaLaTeX")[#LuaLaTeX]
-#variable("LuaTeX")[#LuaTeX]
-#variable("LaTeXe")[#LaTeXe]
+#columns(4)[
+  #variable("LaTeX")[#LaTeX]
+  #variable("LaTeXe")[#LaTeXe]
+  #colbreak()
+  #variable("XeTeX")[#XeTeX]
+  #variable("XeLaTeX")[#XeLaTeX]
+  #colbreak()
+  #variable("LuaTeX")[#LuaTeX]
+  #variable("LuaLaTeX")[#LuaLaTeX]
+  #colbreak()
+  #variable("TeX")[#TeX]
+]
 
 == Configuration
 
-#command("metalogo", sarg("options"))[
+#command("metalogo", sarg[options], barg[body])[
+  Change kern and drop parameters for the content inside #arg[body].
+
   #argument("options", types: ((:)), default: none)[
-    Options passed to #cmd("metalogo") override the lengths used by the logo
-    commands described in @cmd-logo globally.
+    Options passed to #cmd[metalogo] override the lengths used by the logo
+    commands (@cmd-logo). If no options are passed, all options are reset to
+    their default values.
 
     @metalogo-options lists the accepted options and their default values.
   ]
 ]
 
-#context {
-  let cfg = config.get()
-  [
-    #figure(caption: [Kern and drop parameters])[
-      Kerns
-      #table(
-        columns: 4,
-        table.header[Characters][Logo][Option][Default value],
+#context [
+#let cfg = config.get()
+#let kerns = table(
+  columns: 4,
+  table.header[Pair][Logo][Option][Default value],
 
-        [T#h(cfg.kern-te)#drop(cfg.drop-tex)[E]],
-        [#TeX],
-        [#opt("kern-te")],
-        [#value(cfg.kern-te)],
+  [T#kern(cfg.kern-te)#drop(cfg.drop-tex)[E]],
+  [#TeX],
+  [#opt[kern-te]],
+  [#default(defaults.kern-te)],
 
-        [#drop(cfg.drop-tex)[E]#h(cfg.kern-ex)X],
-        [#TeX],
-        [#opt("kern-ex")],
-        [#value(cfg.kern-ex)],
+  [#drop(cfg.drop-tex)[E]#kern(cfg.kern-ex)X],
+  [#TeX],
+  [#opt[kern-ex]],
+  [#default(defaults.kern-ex)],
 
-        [],
-        [#LaTeX],
-        [#opt("kern-la")],
-        [#value(cfg.kern-la)],
+  [L#kern(cfg.kern-la)#a],
+  [#LaTeX],
+  [#opt[kern-la]],
+  [#default(defaults.kern-la)],
 
-        [],
-        [#LaTeX],
-        [#opt("kern-at")],
-        [#value(cfg.kern-at)],
+  [#a#kern(cfg.kern-at)T],
+  [#LaTeX],
+  [#opt[kern-at]],
+  [#default(defaults.kern-at)],
 
-        [],
-        [#XeTeX],
-        [#opt("kern-xe")],
-        [#value(cfg.kern-xe)],
+  [#Xe],
+  [#XeTeX],
+  [#opt[kern-xe]],
+  [#default(defaults.kern-xe)],
 
-        [],
-        [#XeTeX],
-        [#opt("kern-et")],
-        [#value(cfg.kern-et)],
+  [#drop(cfg.drop-xe)[#mirror[E]]#kern(cfg.kern-et)T],
+  [#XeTeX],
+  [#opt[kern-et]],
+  [#default(defaults.kern-et)],
 
-        [],
-        [#XeLaTeX],
-        [#opt("kern-el")],
-        [#value(cfg.kern-el)],
+  [#drop(cfg.drop-xe)[#mirror[E]]#kern(cfg.kern-el)L],
+  [#XeLaTeX],
+  [#opt[kern-el]],
+  [#default(defaults.kern-el)],
 
-        [],
-        [#LaTeXe],
-        [#opt("kern-x2")],
-        [#value(cfg.kern-x2)],
-      )
+  [X#kern(cfg.kern-x2)2],
+  [#LaTeXe],
+  [#opt[kern-x2]],
+  [#default(defaults.kern-x2)],
+)
+#let drops = table(
+  columns: 4,
+  table.header[Glyph][Logo][Option][Default value],
 
-      Drops
-      #table(
-        columns: 4,
-        table.header[Character][Logo][Option][Default value],
+  [#drop(cfg.drop-tex)[E]],
+  [#TeX],
+  [#opt[drop-tex]],
+  [#default(defaults.drop-tex)],
 
-        [#drop(cfg.drop-tex)[E]],
-        [#TeX],
-        [#opt("drop-tex")],
-        [#value(cfg.drop-tex)],
+  [#drop(cfg.drop-xe)[#mirror[E]]],
+  [#Xe],
+  [#opt[drop-xe]],
+  [#default(defaults.drop-xe)],
 
-        [#drop(cfg.drop-xe)[#mirror[E]]],
-        [#XeTeX],
-        [#opt("drop-xe")],
-        [#value(cfg.drop-xe)],
-      )
-    ] <metalogo-options>
-  ]
-}
+  [#a],
+  [#LaTeX],
+  [#opt[drop-a]],
+  [#default(defaults.drop-a)],
+)
+
+#pad(y: 5mm)[
+  #figure(caption: [Kern and drop parameters#footnote[The default parameters
+  are taken from the original #LaTeX metalogo package, which expects the
+  default #LaTeX font to be used (Latin Modern). The values shown in
+  @metalogo-options are not the values used in this document.]])[
+    #columns(2)[
+      #kerns
+      #colbreak()
+      #drops
+    ]
+  ] <metalogo-options>
+]
+
+]
+
+= Examples
+
+== Scoped configuration
+
+#example[```
+#LaTeX
+
+#metalogo(kern-la: .3em)[
+  #LaTeX
+]
+
+#LaTeX
+```]
+
+== Global configuration
+
+#example[```
+#LaTeX
+
+#show: metalogo.with(kern-la: .3em)
+
+#LaTeX
+
+#LaTeX
+```]
