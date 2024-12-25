@@ -2,28 +2,18 @@
 
 Typeset LaTeX compiler logos in [typst](https://github.com/typst/typst).
 
-## todo
-
-- document `metalogo()` command
-- write a manual
-- fix TODOs
-- check everything for packaging
-
 ## usage
 
-From [./demo.typ](./demo.typ):
+From [demo.typ](./demo.typ):
 
 ```typ
-#import "@preview/metalogo:1.1.0": TeX, LaTeX, XeLaTeX, XeTeX, LuaLaTeX
+#import "@preview/metalogo:1.2.0": TeX, LaTeX
 
-#LaTeX is a typestting program based on #TeX. Some people use #XeLaTeX
-(sometimes #XeTeX), or #LuaLaTeX to typeset their documents.
-
-People who are afraid of #LaTeX and its complex macro system may use typst
-instead.
+#LaTeX is a typesetting system based on #TeX.
 ```
-
-Output:
-
 ![](./demo.svg)
+
+All commands and configuration options are documented in [the manual][man].
+
+[man]: https://github.com/lonkaars/typst-metalogo/releases/download/1.2.0/manual.pdf
 
